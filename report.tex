@@ -77,15 +77,46 @@ Stella Kim\\
 %%%%%%%%% BODY TEXT
 \section{Introduction}
 
-In this project, our goal is to change the genre of a music track, given a set of user inputs 
-containing song and the desired genre. To accomplish the goal, the main model that we are going to 
-consider is CycleGAN~\cite{zhu2017unpaired}-based model. Though Isola et al. proposed this 
-architecture for unpaired Image-to-Image translation, we are hoping that this model with a proper
-modification of the structure would accept relative information from audio tracks.
+Recent advancements of Artificial Intelligence grant computers the abilities to mimic the noble creativity of the most
+intellectual lives.
+One of the advancements is computer-vision which allows computers to understand images just like human beings.
+However, unlike images, music has not been studied as extensive in the field of deep learning.
+Thus, we thought it would be interesting to do a project using data that represent audio.
+
+Today, we are given many resources to share and access to all different types of music through apps like Spotify or
+YouTube.
+Due to those music apps and newly invented comfortable ear buds such as airPods, many people seem to be always listening
+to music on a daily basis.
+People listen to music while studying, driving, working and doing all other different types of tasks.
+Because of such increasement in number of music listeners and people who are interested in music, musicians are always
+trying hard to provide new musical experience to the listeners.
+One of the ways that musicians create a song is changing a song to a different style of music while keeping the main
+characteristics of the original song.
+This is different from creating a totally new song from scratch and this way of changing a song to a new song by adding
+some new ideas is called music arrangement.
+Music arrangement can be done differently by making some different changes and one of the changes that could be made to
+a song is the genre.
+Only changing the genre of a song while keeping the main theme of the song might sound trivial but it is actually a very
+difficult task which takes quite a long time and much effort.
+Therefore, we would like to see if changing the genre of music could be done using machine-learning methods. 
+
+Our goal is very similar to AmazonWeb Service’s DeepComposer \footnote{
+  AWS DeepComposer Product Description Page: \url{https://aws.amazon.com/deepcomposer/}
+},
+a keyboard that allows people to create a new song or arrange to a different genre with
+a simple combination of notes of their own.
+DeepComposer is based on deep learning models using generator and discriminator to update the music.
+Slightly different from DeepComposer,
+our project will focus on transferring the genre of the song to the user’s desired genre.
+
 
 \section{Literature Review}
 
 \subsection{Audio Files}
+
+% <TODO> Reason why we choose MIDI files
+% First, we tried to deal with the binary audio files (MP3, WAV, AAC, and etc), but we were unable to find a good way to use audio files as an input source for the neural network. Specifically, extracting features (tones, pitch, and length of each sound) from the 
+%     <TODO> appendix MIDI file specification
 
 \subsection{Model Architecutures}
 
@@ -102,9 +133,46 @@ of the algorithms may be included here.
 Describe the experiments you performed. You may want to create separate
 subsections to further structure this section.
 
+
 \subsection{Dataset}
 
-Briefly describe your dataset in a separate subsection.
+Finding a large amount of music having paired labels(the arranged/mixed music based on the same track) is very
+challenging and even considered as impossible task, since there is a limited number of arranged tracks for each
+music(with high possibility, there is no arranged track).
+To use cycleGAN~\cite{zhu2017unpaired}, we at least need to have unpaired labeled data.
+More specifically, we need music sources which have genre information as their label.
+Also, because the music industry is one of the most sensitive markets toward copyright issue,
+it is also important to only use the music tracks which do not have any restrictions on the usage for research purposes.
+\par
+For this project, we collected MIDI files of different genres, including Classical, Pop, Rock, and Jazz.
+We first tried collecting MIDI files of all four different genres from the same database to ensure the fairness and
+equality across all the files; however, we could not find a good database that has good MIDI files of all the four
+genres we intended to use for the project.
+Thus, we allowed ourselves to collect the files of each genre from different databases.
+At the end, we collected MIDI files of classical music from mfiles\footnote{
+  Classical Database: \url{https://www.mfiles.co.uk/classical-midi.htm}
+}
+while MIDI files of Pop and Rock are from midiworld \footnote{
+  Pop Database: \url{https://www.midiworld.com/search/?q=classic} \linebreak
+  Rock Database: \url{https://www.midiworld.com/search/?q=rock}
+}.
+However, we had some difficulties finding a good set of MIDI files of Jazz music so we used the same data with
+Brunner et al. \cite{brunner2018symbolic} 
+\par
+For classical, pop and rock MIDI files, we did data crawling since those files are from websites.
+To do data crawling, we first used import.io, \footnote{
+   Import.io product website: \url{https://www.import.io/}
+}
+which is a web application that gets all the text contents of a webpage including links.
+Then we used R to cut off all the unnecessary text data we got from import.io to only select the download
+links for files.
+After cleaning up the data, then we used for-loop in R to go through the iterations and download all the files that are
+linked to addresses that we found earlier.
+For Jazz, we simply downloaded the files from GitHub.
+
+% <TODO> Drawback of collecting files from different sources
+
+% <TODO> Data pre-processing
 
 
 \subsection{Software}
@@ -127,6 +195,7 @@ sections.
 Describe your conclusions here. If there are any future directions, you can
 describe them here, or you can create a new section for future directions.
 
+
 \section{Acknowledgements}
 
 Our project is part of Spring 2020 semester's Statistics 453 \footnote{
@@ -139,7 +208,16 @@ We specially appreciate with Prof. Raschka for all of his effort toward lectures
 
 \section{Contributions}
 
-Describe the contributions of each team member who worked on this project.
+All of our team member decide to work on all steps and tasks together,
+as we believe it is important for everyone to at least understand how and what we are doing to achieve common goal.
+However, as each individual has his/her own specialties and strength, some tasks has been designated to specific person.
+\par
+As Hyecheol (Jerry) Jang has strength on understanding and fixing the codes written on python,
+he mainly worked on analyzing and fixing the baseline code.
+To do so, he went through the tensorflow API to understand what's going on inside the code and to remove depressed and 
+unsupported code parts from the baseline code.
+\par
+As 
 
 
 {\small
