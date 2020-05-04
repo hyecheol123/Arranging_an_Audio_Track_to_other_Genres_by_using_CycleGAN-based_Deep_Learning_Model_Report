@@ -359,8 +359,8 @@ The second version of our model we revised our first generalized model to fix th
 and the other solution was to fix the cod to utilize the 3D tensor for input, in order to  represent all the sounds of different instruments from the song. Considering difficulties and efficiency to fix the problem,
 we decided to merge tracks to one channel. Additionally, we tried to remove trailing and ending whitespace from the MIDI file before slicing to fix the empty blank slices of the MIDI file.
 After fixing main problems, we made four different models with diffferent hyperparameters. We set the first and second model with 64 convolutional filters for the generator, while setting third and fourth model with 128 convolutional filters for the generator.
-In the case of epoch and learning rate, first model was set with `epoch=100` and `Learning Rate = 0.0002`. Second model was set with `epoch=200` and 'Learning Rate = 0.0001`. 
-Then, for the third model, epoch and learning rate was set with `epoch=100` and `Learning Rate = 0.0002`. Fourth model was set with `epoch=200` and 'Learning Rate = 0.0001`.
+In the case of epoch and learning rate, first model was set with `epoch=100` and `Learning Rate = 0.0002`. Second model was set with `epoch=200` and `Learning Rate = 0.0001`. 
+Then, for the third model, epoch and learning rate was set with `epoch=100` and `Learning Rate = 0.0002`. Fourth model was set with `epoch=200` and `Learning Rate = 0.0001`.
 However, our third and fouth model have failed on training due to errors from Google CoLab. 
 To summarize, first and second model was successful on training phase while the learning rate linearly diminished after 505 of epoch.
 \par
