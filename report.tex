@@ -167,8 +167,17 @@ a new song based off of the original version.
 
 \section{Experiments}
 
-% Describe the experiments you performed. You may want to create separate
-% subsections to further structure this section.
+We generated two version of model to proof our idea.
+The first model utilizes the original soundtrack without any filteration or merging.
+The second model we tried merges all the channels in MIDI file to one track (representing the piano's sound).
+\par
+All the model follows the basic structures that proposed on Brunner et. al. \cite{brunner2018symbolic}.
+For the second model, we tried four different settings during the training time.
+The first setting uses learning rate of 0.0002,
+epoch of 100 and second setting uses learing rate of 0.0001 and epoch of 200.
+The first and second setting uses 64 convolution filters on generator.
+For the third and fourth setting the learning rate and the epoch numbers are identical to the first and second setting, 
+but it uses 128 convolution filters on generator. 
 
 
 \subsection{Dataset}
@@ -223,10 +232,18 @@ Also, the existence of variations in one genre
 made us hard to pin-point the specific characteristics that each genre has.
 However, as there is no available databases such that categorizes the MIDI files in very specific genres,
 we decide to stay on using the big genre classes.
-% <TODO> Drawback of collecting files from different sources
 \par
 \paragraph{Data Pre-Processing}
 Due to the unstructuredness of the retrieved dataset, we are forced to preprocess the data.
+During the data preprocessing, the baseline code dropped the songs which have time signiture change,
+of which the first beat does not start at time zero, and of which time signiture is not 4/4 \cite{brunner2018symbolic}.
+The filter that Brunner et. al used is implemented in a very precise and specific way,
+which makes the songs that go through the filter ruins the song in such way that the msuic does not represent the 
+intended genere anymore.
+\par
+For the first experiment to make the model more generalized, we removed those filters before we processed the data.
+For the second experiment, which merges all the sound channels into one channel, we removed the trailing and ending
+whitespaces so that it can minimize the blank audio slices after cutting the sound to fixed-length slices.
 
 
 \subsection{Software}
