@@ -365,19 +365,20 @@ shown in Figure \ref{fig:Image1} and Figure \ref{fig:Image2}.
   \begin{center}
      \includegraphics[width=0.8\linewidth]{figures/Image1.jpg}
   \end{center}
-     \caption{Example output of visualizaion for MIDI file from Generalized model, pop song to classical song.
-      Origianal-Transferred-Cycle, in that order}
+     \caption{Example output of visualizaion for MIDI file from Generalized model, pop song to classical song.\newline
+              Origianal-Transferred-Cycle, in that order}
   \label{fig:Image1}
-  \end{figure*}
+\end{figure*}
 
-  \begin{figure*}
-    \begin{center}
-       \includegraphics[width=0.8\linewidth]{figures/Image2.jpg}
-    \end{center}
-       \caption{Example output of visualizaion for MIDI file from Generalized model, classical song to pop song.
-        Origianal-Transferred-Cycle, in that order.}
-    \label{fig:Image2}
-    \end{figure*}
+\begin{figure*}
+  \begin{center}
+      \includegraphics[width=0.8\linewidth]{figures/Image2.jpg}
+  \end{center}
+      \caption{Example output of visualizaion for MIDI file from Generalized model, classical song to pop song. \newline
+               Origianal-Transferred-Cycle, in that order.}
+  \label{fig:Image2}
+\end{figure*}
+
 To solve the problem, we analyzed our code and tried to find out the problem and fix it.
 From our analysis,
 we figured out that original songs that were used, which is the song that we are trying to transfer to different genre,
@@ -411,47 +412,51 @@ Fourth model was set with 'epoch=200' and 'Learning Rate = 0.0001'.
 However, our third and fouth model have failed on training due to errors from Google CoLab. 
 To summarize, first and second model was successful on training phase while the learning rate linearly diminished after
 50\% of epoch.
-
-You can see the visualization of the MIDI file based on example results from merged channel model that we used for the presentation 
-shown in Figure \ref{fig:Image3}, Figure \ref{fig:Image4}, Figure \ref{fig:Image5}, and Figure \ref{fig:Image6}.
-
 \par
-% TODO FIGURE 3, 4, 5, 6
+You can see the visualization of the MIDI file based on example results from merged channel model that we used for 
+the presentation shown in Figure
+\ref{fig:Image3}, Figure \ref{fig:Image4}, Figure \ref{fig:Image5}, and Figure \ref{fig:Image6}.
+
 \begin{figure*}
   \begin{center}
-     \includegraphics[width=0.8\linewidth]{figures/Image3.jpg}
+    \includegraphics[width=0.8\linewidth]{figures/Image3.jpg}
   \end{center}
-     \caption{Example output of visualizaion for MIDI file from First Merged channel model, pop song to classical song.
-      Origianal-Transferred-Cycle, in that order.}
+    \caption{Example output of visualizaion for MIDI file from First Merged channel model, pop song to classical song.
+               \newline
+               Origianal-Transferred-Cycle, in that order.}
   \label{fig:Image3}
-  \end{figure*}
+\end{figure*}
 
-  \begin{figure*}
-    \begin{center}
-       \includegraphics[width=0.8\linewidth]{figures/Image4.jpg}
-    \end{center}
-       \caption{Example output of visualizaion for MIDI file from First Merged channel model, classical song to pop song.
-        Origianal-Transferred-Cycle, in that order.}
-    \label{fig:Image4}
-    \end{figure*}
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=0.8\linewidth]{figures/Image4.jpg}
+  \end{center}
+    \caption{Example output of visualizaion for MIDI file from First Merged channel model, classical song to pop song.
+             \newline
+             Origianal-Transferred-Cycle, in that order.}
+  \label{fig:Image4}
+\end{figure*}
 
-    \begin{figure*}
-      \begin{center}
-         \includegraphics[width=0.8\linewidth]{figures/Image5.jpg}
-      \end{center}
-         \caption{Example output of visualizaion for MIDI file from Second Merged channel model, pop song to classical song.
-          Origianal-Transferred-Cycle, in that order.}
-      \label{fig:Image5}
-      \end{figure*}
+\begin{figure*}
+  \begin{center}
+      \includegraphics[width=0.8\linewidth]{figures/Image5.jpg}
+  \end{center}
+      \caption{Example output of visualizaion for MIDI file from Second Merged channel model, pop song to classical song.
+               \newline
+               Origianal-Transferred-Cycle, in that order.}
+  \label{fig:Image5}
+\end{figure*}
 
-      \begin{figure*}
-        \begin{center}
-           \includegraphics[width=0.8\linewidth]{figures/Image6.jpg}
-        \end{center}
-           \caption{Example output of visualizaion for MIDI file from Second Merged channel model, classical song to pop song.
-            Origianal-Transferred-Cycle, in that order.}
-        \label{fig:Image6}
-        \end{figure*}
+\begin{figure*}
+  \begin{center}
+      \includegraphics[width=0.8\linewidth]{figures/Image6.jpg}
+  \end{center}
+      \caption{Example output of visualizaion for MIDI file from Second Merged channel model, classical song to pop song.
+               \newline
+               Origianal-Transferred-Cycle, in that order.}
+  \label{fig:Image6}
+\end{figure*}
+
 The genre change we tried with our two models with tracks being merged in to one channel,
 was same as what we did with our first generalized model, pop song to classical song and classical song to pop song.
 The outputs that were generated from our model was much more successful compared to our first generalized model.
