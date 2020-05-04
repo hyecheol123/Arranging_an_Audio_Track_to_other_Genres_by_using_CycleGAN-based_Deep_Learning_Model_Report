@@ -158,25 +158,27 @@ a new song based off of the original version.
 
 \subsection{Model Architecutures}
 \paragraph{conditional GAN Image-to-Image Translation}
-Translating a type of image to another type of image can be viewed as translating pixel by pixel of 
-an image. Thus, instead of having different algorithms for different types of image 
-translation~\cite{isola2017image}, uses conditional Generative adversarial network(cGAN) to provide 
-general solutions to any type of image translation. For any type of image translation, the same 
-architecture and objective are used but is trained using different paired image dataset through 
-Conditional GAN by putting conditions on the input image and outputting the corresponding image.
-
+Translating a type of image to another type of image can be viewed as translating pixel by pixel of an image.
+Thus, instead of having different algorithms for different types of image translation~\cite{isola2017image},
+uses conditional Generative adversarial network(cGAN) to provide general solutions to any type of image translation.
+For any type of image translation, the same architecture and objective are used but is trained using different paired 
+image dataset through Conditional GAN by putting conditions on the input image and outputting the corresponding image.
+\par
 \paragraph{CycleGAN for Image-to-Image Translation}
-Often finding a large size of paired dataset can be very expensive and difficult. On the other hand,
-unpaired dataset can be a little more reasonable to find compared to the paired dataset. Thus, Zhu 
-et al.~\cite{zhu2017unpaired} provides a solution to such problem where the training samples do not 
-have to be paired. Zhu et al.~\cite{zhu2017unpaired} did image-to-image translation which is 
-translating a type of image to a different type using CycleGAN. CycleGAN’s approach is that, instead 
-of learning using paired dataset for training, learning from unpaired dataset of source domain X and 
-target domain Y. Its strategy is that given domain X, the translated version of X to domain Y type 
-should be translated back to domain X type without much loss.
+Often finding a large size of paired dataset can be very expensive and difficult.
+On the other hand, unpaired dataset can be a little more reasonable to find compared to the paired dataset.
+Thus, Zhu et al.~\cite{zhu2017unpaired} provides a solution to such problem where the training samples do not have to be
+paired.
+Zhu et al.~\cite{zhu2017unpaired} did image-to-image translation which is translating a type of image to a different 
+type using CycleGAN.
+CycleGAN’s approach is that, instead of learning using paired dataset for training, 
+learning from unpaired dataset of source domain X and target domain Y.
+Its strategy is that given domain X, the translated version of X to domain Y type should be translated back to domain X 
+type without much loss.
+\par
+Since it is hard to find paired dataset for arranged music,
+cycleGAN's approach is more suitable for our research, compared to cGAN.
 
-Since it is hard to find paired dataset for arranged music, cycleGAN's approach is more suitable 
-for our research, compared to cGAN.
 
 \subsection{Baseline Code}
 CycleGAN can not only learn from image dataset, but also can be used to learn from different types of dataset.
@@ -339,53 +341,110 @@ flush\textunderscore and \textunderscore unmount() before you terminate the sess
 
 \section{Results and Discussion}
 
-To summarize, we obtained two different results from the first version of our model, which is the generalized model, and the second version of our model, which is the model with merged channel.
+To summarize, we obtained two different results from the first version of our model, which is the generalized model,
+and the second version of our model, which is the model with merged channel.
 The first version of our model was based on the model that was prposed on Brunner et. al. \cite{brunner2018symbolic},
-we modified the model by removing filters and made generalized model. The reason why we removed the filter from our model is that, 
-model that was proposed on Brunner et. al. \cite{brunner2018symbolic} had filter for the MIDI file to have time signature chages, remove songs that does not start at time zero, 
-and remove songs that do not have time signature of 4/4. By using this filter we thought that music that goes in to the model will be too specific, therefore,
-the filtered songs will not represent the genre as a whole. Since our main goal is to detect the characteristics of the song's genre and generate new composed song with different genre from given input data,
-we decided to make a more generalized model for our first trial.
+we modified the model by removing filters and made generalized model.
+The reason why we removed the filter from our model is that, 
+model that was proposed on Brunner et. al. \cite{brunner2018symbolic} had filter for the MIDI file to have 
+time signature chages, remove songs that does not start at time zero, and remove songs that do not have time signature 
+of 4/4.
+By using this filter we thought that music that goes in to the model will be too specific, therefore, the filtered songs
+will not represent the genre as a whole.
+Since our main goal is to detect the characteristics of the song's genre and generate new composed song with different 
+genre from given input data, we decided to make a more generalized model for our first trial.
 \par
-The genre change we first tried with our generalized model was pop song to classical song and classical song to pop song. However, both of the outputs that were generated from our generalized model were not successful.
-The generated songs sounded like it did not have any similarity with the original song, and consisted with random notes. To solve the problem, we analyzed our code and tried to find out the problem and fix it.
-From our analysis, we figured out that original songs that were used, which is the song that we are trying to transfer to different genre, did not contain all sounds as the code only used one track, in our case piano, and 
-dropped the others such as drum, bass and guitar. The reason why our code only used one track was that our model only accepted 2D array, [tone, time] for training, which was more suitable for the piano.
-Hence, our model choosed to use piano as a single track. Another problem that we found was that our input data did not represent all the sounds of a song. For example, in pop song, besides the sounds from different instruments,
-such as piano and guitar, there is also a melody from vocal that contributes to the sounds of a song. Since the MIDI file does not provide the melody or sound of the vocal, it was hard for our data to represent all the sounds of the song.
-These problems that we found were causing the our generalized model unable to learn the characteristics of each genre, hence, the unsuccessful output with random notes.
+The genre change we first tried with our generalized model was pop song to classical song and classical song to pop song.
+However, both of the outputs that were generated from our generalized model were not successful.
+The generated songs sounded like it did not have any similarity with the original song, and consisted with random notes.
+% TODO FIGURE 1 & 2
+To solve the problem, we analyzed our code and tried to find out the problem and fix it.
+From our analysis,
+we figured out that original songs that were used, which is the song that we are trying to transfer to different genre,
+did not contain all sounds as the code only used one track,
+in our case piano, and dropped the others such as drum, bass and guitar.
+The reason why our code only used one track was that our model only accepted 2D array, [tone, time] for training, 
+which was more suitable for the piano.
+Hence, our model choosed to use piano as a single track.
+Another problem that we found was that our input data did not represent all the sounds of a song.
+For example, in pop song, besides the sounds from different instruments, such as piano and guitar,
+there is also a melody from vocal that contributes to the sounds of a song.
+Since the MIDI file does not provide the melody or sound of the vocal,
+it was hard for our data to represent all the sounds of the song.
+These problems that we found were causing the our generalized model unable to learn the characteristics of each genre,
+hence, the unsuccessful output with random notes.
 \par
-The second version of our model we revised our first generalized model to fix the discovered problems. One of the solutions that we came up with was merge tracks to solve dimension,
-and the other solution was to fix the cod to utilize the 3D tensor for input, in order to  represent all the sounds of different instruments from the song. Considering difficulties and efficiency to fix the problem,
-we decided to merge tracks to one channel. Additionally, we tried to remove trailing and ending whitespace from the MIDI file before slicing to fix the empty blank slices of the MIDI file.
-After fixing main problems, we made four different models with diffferent hyperparameters. We set the first and second model with 64 convolutional filters for the generator, while setting third and fourth model with 128 convolutional filters for the generator.
-In the case of epoch and learning rate, first model was set with `epoch=100` and 'Learning Rate = 0.0002`. Second model was set with `epoch=200` and 'Learning Rate = 0.0001`. 
-Then, for the third model, epoch and learning rate was set with `epoch=100` and 'Learning Rate = 0.0002`. Fourth model was set with `epoch=200` and 'Learning Rate = 0.0001`.
+The second version of our model we revised our first generalized model to fix the discovered problems.
+One of the solutions that we came up with was merge tracks to solve dimension,
+and the other solution was to fix the code to utilize the 3D tensor for input,
+in order to represent all the sounds of different instruments from the song.
+Considering difficulties and efficiency to fix the problem, we decided to merge tracks to one channel.
+Additionally, we tried to remove trailing and ending whitespace from the MIDI file before slicing to fix the empty blank
+slices of the MIDI file.
+After fixing main problems, we made four different models with diffferent hyperparameters.
+We set the first and second model with 64 convolutional filters for the generator,
+while setting third and fourth model with 128 convolutional filters for the generator.
+In the case of epoch and learning rate, first model was set with `epoch=100` and 'Learning Rate = 0.0002`.
+Second model was set with `epoch=200` and 'Learning Rate = 0.0001`. 
+Then, for the third model, epoch and learning rate was set with `epoch=100` and 'Learning Rate = 0.0002`.
+Fourth model was set with `epoch=200` and 'Learning Rate = 0.0001`.
 However, our third and fouth model have failed on training due to errors from Google CoLab. 
-To summarize, first and second model was successful on training phase while the learning rate linearly diminished after 505 of epoch.
+To summarize, first and second model was successful on training phase while the learning rate linearly diminished after
+505 of epoch.
 \par
-The genre change we tried with our two models with tracks being merged in to one channel, was same as what we did with our first generalized model, pop song to classical song and classical song to pop song.
-The outputs that were generated from our model was much more successful compared to our first generalized model. It did not sounded like song with random notes like first outputs, but sounded similar to the original songs that were given.
-Our outputs contained the melody from the original songs that were given, but sounded differently as if the genre was changed like we intended to. However, since the outputs only contained piano based melody,
-it was hard to distinguish if the genre of the song was pop or classical. However, the songs that were transferred to classical song from pop song contained much more harmonical sounds than the original songs, just like normal classical songs.
-For the songs that were transferred to pop song from classical songs, they contained less harmonical sounds than the original songs, but contained experimental melody than the origianl songs, just like normal pop songs.
+% TODO FIGURE 3, 4, 5, 6
+The genre change we tried with our two models with tracks being merged in to one channel,
+was same as what we did with our first generalized model, pop song to classical song and classical song to pop song.
+The outputs that were generated from our model was much more successful compared to our first generalized model.
+It did not sounded like song with random notes like first outputs,
+but sounded similar to the original songs that were given.
+Our outputs contained the melody from the original songs that were given,
+but sounded differently as if the genre was changed like we intended to.
+However, since the outputs only contained piano based melody,
+it was hard to distinguish if the genre of the song was pop or classical.
+However, the songs that were transferred to classical song from pop song contained much more harmonical sounds
+than the original songs, just like normal classical songs.
+For the songs that were transferred to pop song from classical songs, 
+they contained less harmonical sounds than the original songs,
+but contained experimental melody than the origianl songs, just like normal pop songs.
 \par
-From our results, we have noticed that the problem of our outputs not being significant as we intended to be might coming from various reasons. We discussed that it is possible that lots of pop songs are already motivated from classic songs,
-therefore, we could not listen significant difference between generated songs and original songs and easily notify their genres. Another point that we have discussed is that by removing various instrument information, it ruins the characteristics of each genre.
-Additionally, we realized that there is no perfect way to pass full audio information to deep learning model. While we used MIDI file for our input data, normally, MIDI file is not generalized approach to represent music.
-We also realized that, while the ResNet and U-Net are reckoned to be the state-of-the arts convolution filters for vision tasks, there was no adequate and appropriate convolutional filter for audio tasks to the best of our knowledge.
+From our results, we have noticed that the problem of our outputs not being significant
+as we intended to be might coming from various reasons.
+We discussed that it is possible that lots of pop songs are already motivated from classic songs, therefore,
+we could not listen significant difference between generated songs and original songs and easily notify their genres.
+Another point that we have discussed is that by removing various instrument information,
+it ruins the characteristics of each genre.
+Additionally, we realized that there is no perfect way to pass full audio information to deep learning model.
+While we used MIDI file for our input data, normally, MIDI file is not generalized approach to represent music.
+We also realized that, while the ResNet and U-Net are reckoned to be the state-of-the arts convolution filters
+for vision tasks,
+there was no adequate and appropriate convolutional filter for audio tasks to the best of our knowledge.
+
 
 \section{Conclusions}
 
-In this project, we presented two different models to generate songs with transferred genre of the given songs. While our first model that was generalized by removing filter from model that was prposed on Brunner et. al. \cite{brunner2018symbolic},
-did not give us satisfying result, our second model that we revised from the first model by merging tracks into one channel gave us better results. While our results from first model did not sound like song with consisting of random notes,
-results from the second model showed similarity with given original songs and composed the song to the intended genre in someway. We mostly worked on analyzing related work, revising code, and preprocessing the data, 
-since applying deep learning with audio data is not much developed yet compared to computer vision field. From ananlyzing the models and codes, we found out existing problems and discussed how we could improve our model to generate convincing songs.
-While our final result can be confusing for normal audience to realize if the genre has been changed, we are satisfied with our results. 
+In this project, we presented two different models to generate songs with transferred genre of the given songs.
+While our first model that was generalized by removing filter from model that was prposed on
+Brunner et. al. \cite{brunner2018symbolic}, did not give us satisfying result,
+our second model that we revised from the first model by merging tracks into one channel gave us better results.
+While our results from first model did not sound like song with consisting of random notes,
+results from the second model showed similarity with given original songs and composed the song to
+the intended genre in someway.
+We mostly worked on analyzing related work, revising code, and preprocessing the data, 
+since applying deep learning with audio data is not much developed yet compared to computer vision field.
+From ananlyzing the models and codes,
+we found out existing problems and discussed how we could improve our model to generate convincing songs.
+While our final result can be confusing for normal audience to realize if the genre has been changed,
+we are satisfied with our results. 
 \par
-From deep discussions, we found out some possible improvements that could be made for the further studies. The results can be more significant by trying our models for other genre, such as jazz and rock rather than pop and classical.
-Additionally, we could modify the model structure to get 3D tensor as an input to represent all the instruments from the song, so that it could represent their genre better.
-We also discussed about using spectogram to deal with this complicated audio tasks, while it could be hard to map the spectogram back to audio, it coul be useful for the classification of the genre.
+From deep discussions, we found out some possible improvements that could be made for the further studies.
+The results can be more significant by trying our models for other genre,
+such as jazz and rock rather than pop and classical.
+Additionally, we could modify the model structure to get 3D tensor as an input to represent
+all the instruments from the song, so that it could represent their genre better.
+We also discussed about using spectogram to deal with this complicated audio tasks,
+while it could be hard to map the spectogram back to audio, it coul be useful for the classification of the genre.
+
 
 \section{Acknowledgements}
 
